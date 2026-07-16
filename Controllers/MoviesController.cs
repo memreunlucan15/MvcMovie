@@ -33,6 +33,7 @@ namespace MvcMovie.Controllers
         {
             movies = movies.Where(s => s.Title!.ToUpper().Contains(searchString.ToUpper()));
         }
+            movies = movies.OrderBy(m => m.Title);
             return View(await movies.ToListAsync());
         }
 

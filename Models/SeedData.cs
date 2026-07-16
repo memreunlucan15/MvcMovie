@@ -8,8 +8,9 @@ public static class SeedData
     public static void Initialize(IServiceProvider serviceProvider)
     {
         using (var context = new MvcMovieContext(serviceProvider.GetRequiredService<
-        DbContextOptions<MvcMovieContext>>()))
-        {
+        DbContextOptions<MvcMovieContext>>())) // SeedData.Initialize uygulama açılırken, MVC'nin dışında çalışıyor burada. 
+        {                                      // Bu yüzden önceden Dependency Injection'un yaptığı 3 işi elimizle yapıyoruz.
+                                               // Program.cs'ten depo çekilir(Initialize içi),  ayar paketi alınır(MvcMovieContext içi), using ise iş bitince bağlantıyı bitirir.
             if (context.Movie.Any())
             {
                 return;   // varsa dokunma — tekrar tekrar eklemesin
